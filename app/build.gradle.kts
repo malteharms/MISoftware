@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "de.malteharms.misoftware"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "de.malteharms.misoftware"
