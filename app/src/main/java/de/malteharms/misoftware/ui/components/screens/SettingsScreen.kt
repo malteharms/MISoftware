@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 
 @Composable
-fun SearchScreen(navController: NavController) {
+fun SettingsScreen(navController: NavController) {
     MISoftwareTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -29,7 +29,7 @@ fun SearchScreen(navController: NavController) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    "Search Screen",
+                    "Settings Screen",
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.padding(vertical = 20.dp)
                 )

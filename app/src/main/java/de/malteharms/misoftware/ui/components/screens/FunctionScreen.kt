@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 
 @Composable
-fun ProfileScreen(navController: NavController) {
+fun FunctionScreen(navController: NavController) {
     MISoftwareTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -27,9 +27,9 @@ fun ProfileScreen(navController: NavController) {
                     .padding(15.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
-            )  {
+            ) {
                 Text(
-                    "Profile Screen",
+                    "Function Screen",
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.padding(vertical = 20.dp)
                 )

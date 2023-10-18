@@ -18,9 +18,10 @@ import androidx.navigation.compose.rememberNavController
 import de.malteharms.misoftware.models.Screens
 import de.malteharms.misoftware.ui.components.AppBar
 import de.malteharms.misoftware.ui.components.BottomNavigationBar
+import de.malteharms.misoftware.ui.components.screens.FunctionScreen
 import de.malteharms.misoftware.ui.components.screens.HomeScreen
-import de.malteharms.misoftware.ui.components.screens.ProfileScreen
-import de.malteharms.misoftware.ui.components.screens.SearchScreen
+import de.malteharms.misoftware.ui.components.screens.SettingsScreen
+import de.malteharms.misoftware.ui.components.screens.StatistcScreen
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 
 class MainActivity : ComponentActivity() {
@@ -57,11 +58,14 @@ private fun MyApp(modifier: Modifier = Modifier) {
                 composable(Screens.Home.route) {
                     HomeScreen(navController = navController)
                 }
-                composable(Screens.Search.route) {
-                    SearchScreen(navController = navController)
+                composable(Screens.Functions.route) {
+                    FunctionScreen(navController = navController)
                 }
-                composable(Screens.Profile.route) {
-                    ProfileScreen(navController = navController)
+                composable(Screens.Statistic.route) {
+                    StatistcScreen(navController = navController)
+                }
+                composable(Screens.Settings.route) {
+                    SettingsScreen(navController = navController)
                 }
             }
         }
