@@ -1,7 +1,6 @@
 package de.malteharms.misoftware.ui.components.cards
 
 import androidx.compose.runtime.Composable
-import de.malteharms.misoftware.CALENDAR_WEEK
 import de.malteharms.misoftware.ui.components.SimpleCard
 import java.util.Calendar
 
