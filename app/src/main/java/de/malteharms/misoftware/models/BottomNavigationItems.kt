@@ -1,16 +1,16 @@
 package de.malteharms.misoftware.models
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
-import de.malteharms.misoftware.FUNCTIONS
-import de.malteharms.misoftware.HOME
-import de.malteharms.misoftware.SETTINGS
-import de.malteharms.misoftware.STATISTIC
+
+const val HOME = "Home"
+const val FUNCTIONS = "Apps"
+const val STATISTIC = "Statistiken"
+const val SETTINGS = "Einstllungen"
+
 
 //initializing the data class with default parameters
 data class BottomNavigationItem(

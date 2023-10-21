@@ -1,7 +1,9 @@
 package de.malteharms.misoftware
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,10 +25,19 @@ import de.malteharms.misoftware.ui.components.screens.HomeScreen
 import de.malteharms.misoftware.ui.components.screens.SettingsScreen
 import de.malteharms.misoftware.ui.components.screens.StatistcScreen
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
+import de.malteharms.misoftware.utils.SharedPreferencesManager
+
+private const val TAG = "MyActivity"
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sharedPreferencesManager: SharedPreferencesManager =
+            SharedPreferencesManager.getInstance(
+                getSharedPreferences("MISP", Context.MODE_PRIVATE))
+
         setContent {
             MISoftwareTheme {
                 MyApp(modifier = Modifier.fillMaxSize())
