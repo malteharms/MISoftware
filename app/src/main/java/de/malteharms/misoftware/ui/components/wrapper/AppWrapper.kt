@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,14 +31,15 @@ const val ITEM_PADDING = 15
 
 const val CARD_PADDING = 3
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppWrapper(
     preview: @Composable (navController: NavController) -> Unit,
+    previewRoute: String,
     title: String,
     icon: ImageVector,
-    // onclickPreview: (navigationController: NavController) -> Unit,
     magic: @Composable (navController: NavController) -> Unit,
-    // onclickMagic: (navigationController: NavController) -> Unit,
+    // magicRoute: String,
     navController: NavController
 ) {
     val maxScreenWidth = LocalConfiguration.current.screenWidthDp
@@ -56,7 +58,7 @@ fun AppWrapper(
                 defaultElevation = ELEVATION.dp),
             modifier = Modifier
                 .size(width = cardWidth, height = CARD_HEIGHT.dp),
-            //onClick = { onclickPreview(navController) }
+            onClick = {navController.navigate(previewRoute)}
         ){
             Column(
                 modifier = Modifier

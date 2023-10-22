@@ -15,6 +15,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
+import de.malteharms.misoftware.models.Screens
 import de.malteharms.misoftware.ui.components.screens.costs.CostsPreview
 import de.malteharms.misoftware.ui.components.wrapper.AppWrapper
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
@@ -34,14 +35,16 @@ fun FunctionScreen(navController: NavController) {
                 verticalArrangement = Arrangement.Top
             ) {
                 AppWrapper(
-                    preview = { Text("Kalender") },
-                    title = "Kalender",
+                    preview = { Text("Notes") },
+                    previewRoute = Screens.Notes.route,
+                    title = "Notes",
                     icon = Icons.Default.Build,
                     magic = { Text(text = "magic")},
                     navController = navController
                 )
                 AppWrapper(
                     preview = { CostsPreview(navController = navController) },
+                    previewRoute = Screens.Costs.route,
                     title = "Costs",
                     icon = Icons.Default.Build,
                     magic = { Text(text = "magic")},
@@ -49,6 +52,7 @@ fun FunctionScreen(navController: NavController) {
                 )
                 AppWrapper(
                     preview = { Text("Shopping") },
+                    previewRoute = Screens.Shopping.route,
                     title = "Shopping",
                     icon = Icons.Default.ShoppingCart,
                     magic = { Text(text = "magic")},
@@ -56,6 +60,7 @@ fun FunctionScreen(navController: NavController) {
                 )
                 AppWrapper(
                     preview = { Text("ToDo") },
+                    previewRoute = Screens.Todo.route,
                     title = "ToDo",
                     icon = Icons.Default.Build,
                     magic = { Text(text = "magic")},

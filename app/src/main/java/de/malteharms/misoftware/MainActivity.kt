@@ -24,6 +24,10 @@ import de.malteharms.misoftware.ui.components.screens.FunctionScreen
 import de.malteharms.misoftware.ui.components.screens.HomeScreen
 import de.malteharms.misoftware.ui.components.screens.SettingsScreen
 import de.malteharms.misoftware.ui.components.screens.StatistcScreen
+import de.malteharms.misoftware.ui.components.screens.costs.CostsPage
+import de.malteharms.misoftware.ui.components.screens.notes.NotesPage
+import de.malteharms.misoftware.ui.components.screens.shopping.ShoppingPage
+import de.malteharms.misoftware.ui.components.screens.todo.TodoPage
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 import de.malteharms.misoftware.utils.SharedPreferencesManager
 
@@ -77,6 +81,18 @@ private fun MyApp(modifier: Modifier = Modifier) {
                 }
                 composable(Screens.Settings.route) {
                     SettingsScreen(navController = navController)
+                }
+                composable(Screens.Notes.route) {
+                    NotesPage(navController = navController)
+                }
+                composable(Screens.Costs.route) {
+                    CostsPage(navController = navController)
+                }
+                composable(Screens.Shopping.route) {
+                    ShoppingPage(navController = navController)
+                }
+                composable(Screens.Todo.route) {
+                    TodoPage(navController = navController)
                 }
             }
         }

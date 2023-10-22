@@ -34,7 +34,7 @@ fun HomeScreen(navController: NavController) {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround
                 ) {
-
+                    CalendarWeekCard()
                 }
             }
         }
