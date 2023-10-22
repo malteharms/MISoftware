@@ -1,9 +1,7 @@
 package de.malteharms.misoftware
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -38,9 +36,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        /*
         val sharedPreferencesManager: SharedPreferencesManager =
             SharedPreferencesManager.getInstance(
                 getSharedPreferences("MISP", Context.MODE_PRIVATE))
+        */
 
         setContent {
             MISoftwareTheme {
@@ -71,7 +71,7 @@ private fun MyApp(modifier: Modifier = Modifier) {
                 modifier = Modifier.padding(paddingValues = paddingValues)
             ) {
                 composable(Screens.Home.route) {
-                    HomeScreen(navController = navController)
+                    HomeScreen()
                 }
                 composable(Screens.Functions.route) {
                     FunctionScreen(navController = navController)
@@ -86,7 +86,7 @@ private fun MyApp(modifier: Modifier = Modifier) {
                     NotesPage(navController = navController)
                 }
                 composable(Screens.Costs.route) {
-                    CostsPage(navController = navController)
+                    CostsPage()
                 }
                 composable(Screens.Shopping.route) {
                     ShoppingPage(navController = navController)

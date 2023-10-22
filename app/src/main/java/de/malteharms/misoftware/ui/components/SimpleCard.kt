@@ -20,7 +20,7 @@ val ELEVATION = 6.dp
 val PADDING = 5.dp
 
 var CARD_WIDTH = 140.dp
-val CARD_WIDTH_FROM_MAX = 0.4
+const val CARD_WIDTH_FROM_MAX = 0.4
 
 val CARD_HEIGHT = 100.dp
 

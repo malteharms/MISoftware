@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
@@ -17,7 +16,7 @@ import de.malteharms.misoftware.ui.components.cards.CalendarWeekCard
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen() {
     MISoftwareTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),

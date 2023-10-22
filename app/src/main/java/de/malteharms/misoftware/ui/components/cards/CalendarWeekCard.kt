@@ -16,5 +16,5 @@ fun CalendarWeekCard() {
 
 fun getCurrentCalendarWeek(): String {
     val calendar = Calendar.getInstance()
-    return calendar.get(Calendar.WEEK_OF_YEAR).toString()
+    return calendar[Calendar.WEEK_OF_YEAR].toString()
 }
