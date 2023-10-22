@@ -91,7 +91,7 @@ fun AppWrapper(
                 defaultElevation = ELEVATION.dp),
             modifier = Modifier
                 .size(width = buttonWidth, height = CARD_HEIGHT.dp),
-            //onClick = { onclickMagic(navController) }
+            //onClick = { navController.navigate(magicRoute) }
         ){
             magic(navController)
         }
