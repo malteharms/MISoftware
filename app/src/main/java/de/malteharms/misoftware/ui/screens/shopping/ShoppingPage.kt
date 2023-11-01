@@ -1,4 +1,4 @@
-package de.malteharms.misoftware.ui.components.screens.shopping
+package de.malteharms.misoftware.ui.screens.shopping
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

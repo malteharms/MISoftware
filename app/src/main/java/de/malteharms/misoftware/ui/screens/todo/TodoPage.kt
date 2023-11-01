@@ -1,4 +1,4 @@
-package de.malteharms.misoftware.ui.components.screens.todo
+package de.malteharms.misoftware.ui.screens.todo
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

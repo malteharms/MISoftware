@@ -1,4 +1,4 @@
-package de.malteharms.misoftware.ui.components.screens.costs
+package de.malteharms.misoftware.ui.screens.costs
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
@@ -22,6 +24,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import de.malteharms.misoftware.ui.components.wrapper.CostsGroupElement
+import de.malteharms.misoftware.ui.components.wrapper.CostsListElement
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -40,12 +44,7 @@ fun CostsPage() {
     val listModifier = Modifier
         .width(splitWidth.dp)
         .fillMaxHeight()
-        .clip(RoundedCornerShape(roundedCorner.dp))
-        .background(MaterialTheme.colorScheme.surfaceColorAtElevation(elevation.dp))
-        .padding(
-            top = (roundedCorner / 2).dp,
-            bottom = (roundedCorner / 2).dp
-        )
+        //.background(MaterialTheme.colorScheme.surfaceColorAtElevation(elevation.dp))
 
     Box(
         modifier = Modifier
@@ -57,22 +56,52 @@ fun CostsPage() {
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Top
         ) {
-            Row(
+            Row(    // Left / Right
                 modifier = Modifier
                     .height(splitHeight.dp)
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Box (modifier = listModifier){
-                    Text(text = "Left")
+                Box (modifier = listModifier){  // Left
+                    Column {
+                        CostsGroupElement(false)
+                        CostsGroupElement(true)
+                        CostsGroupElement(false)
+                        CostsGroupElement(false)
+                    }
                 }
 
                 Box (modifier = listModifier){
-                    Text(text = "Right")
+                    Column {
+                        CostsListElement(
+                            leadingIcon = Icons.Default.ShoppingCart,
+                            title = "Title",
+                            description = "Desc",
+                            trailingNumber = 500
+                        )
+                        CostsListElement(
+                            leadingIcon = Icons.Default.ShoppingCart,
+                            title = "Title",
+                            description = "Desc",
+                            trailingNumber = 500
+                        )
+                        CostsListElement(
+                            leadingIcon = Icons.Default.ShoppingCart,
+                            title = "Title",
+                            description = "Desc",
+                            trailingNumber = 500
+                        )
+                        CostsListElement(
+                            leadingIcon = Icons.Default.ShoppingCart,
+                            title = "Title",
+                            description = "Desc",
+                            trailingNumber = 500
+                        )
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(padding.dp))
-            Box(
+            Box(    // Bottom
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(RoundedCornerShape(roundedCorner.dp))

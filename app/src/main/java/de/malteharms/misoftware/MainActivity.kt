@@ -18,14 +18,14 @@ import androidx.navigation.compose.rememberNavController
 import de.malteharms.misoftware.models.Screens
 import de.malteharms.misoftware.ui.components.AppBar
 import de.malteharms.misoftware.ui.components.BottomNavigationBar
-import de.malteharms.misoftware.ui.components.screens.FunctionScreen
-import de.malteharms.misoftware.ui.components.screens.HomeScreen
-import de.malteharms.misoftware.ui.components.screens.SettingsScreen
-import de.malteharms.misoftware.ui.components.screens.StatistcScreen
-import de.malteharms.misoftware.ui.components.screens.costs.CostsPage
-import de.malteharms.misoftware.ui.components.screens.notes.NotesPage
-import de.malteharms.misoftware.ui.components.screens.shopping.ShoppingPage
-import de.malteharms.misoftware.ui.components.screens.todo.TodoPage
+import de.malteharms.misoftware.ui.screens.FunctionScreen
+import de.malteharms.misoftware.ui.screens.HomeScreen
+import de.malteharms.misoftware.ui.screens.SettingsScreen
+import de.malteharms.misoftware.ui.screens.StatistcScreen
+import de.malteharms.misoftware.ui.screens.costs.CostsPage
+import de.malteharms.misoftware.ui.screens.notes.NotesPage
+import de.malteharms.misoftware.ui.screens.shopping.ShoppingPage
+import de.malteharms.misoftware.ui.screens.todo.TodoPage
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 import de.malteharms.misoftware.utils.SharedPreferencesManager
 

@@ -1,4 +1,4 @@
-package de.malteharms.misoftware.ui.components.screens.notes
+package de.malteharms.misoftware.ui.screens.notes
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

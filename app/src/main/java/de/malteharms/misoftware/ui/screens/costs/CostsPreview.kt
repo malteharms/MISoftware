@@ -1,4 +1,4 @@
-package de.malteharms.misoftware.ui.components.screens.costs
+package de.malteharms.misoftware.ui.screens.costs
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController

@@ -1,4 +1,4 @@
-package de.malteharms.misoftware.ui.components.screens
+package de.malteharms.misoftware.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import de.malteharms.misoftware.models.Screens
-import de.malteharms.misoftware.ui.components.screens.costs.CostsPreview
+import de.malteharms.misoftware.ui.screens.costs.CostsPreview
 import de.malteharms.misoftware.ui.components.wrapper.AppWrapper
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 
