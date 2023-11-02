@@ -13,7 +13,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.MaterialTheme
@@ -63,7 +65,9 @@ fun CostsPage() {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Box (modifier = listModifier){  // Left
-                    Column {
+                    Column (
+                        modifier = Modifier.verticalScroll(rememberScrollState())
+                    ){
                         CostsGroupElement(false)
                         CostsGroupElement(true)
                         CostsGroupElement(false)
@@ -72,31 +76,20 @@ fun CostsPage() {
                 }
 
                 Box (modifier = listModifier){
-                    Column {
-                        CostsListElement(
-                            leadingIcon = Icons.Default.ShoppingCart,
-                            title = "Title",
-                            description = "Desc",
-                            trailingNumber = 500
-                        )
-                        CostsListElement(
-                            leadingIcon = Icons.Default.ShoppingCart,
-                            title = "Title",
-                            description = "Desc",
-                            trailingNumber = 500
-                        )
-                        CostsListElement(
-                            leadingIcon = Icons.Default.ShoppingCart,
-                            title = "Title",
-                            description = "Desc",
-                            trailingNumber = 500
-                        )
-                        CostsListElement(
-                            leadingIcon = Icons.Default.ShoppingCart,
-                            title = "Title",
-                            description = "Desc",
-                            trailingNumber = 500
-                        )
+                    Column (
+                        modifier = Modifier
+                            .verticalScroll(rememberScrollState())
+                    ){
+                        for (i in 0..100){
+                            CostsListElement(
+                                leadingIcon = Icons.Default.ShoppingCart,
+                                title = "Title",
+                                description = "Desc",
+                                trailingNumber = "500€"
+                            )
+                            Spacer(modifier = Modifier.height(10.dp))
+                        }
+
                     }
                 }
             }

@@ -34,15 +34,19 @@ fun CostsListElement(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(leadingIcon, contentDescription = null)
+        Icon(
+            leadingIcon,
+            contentDescription = null,
+            modifier = Modifier.size(20.dp)
+        )
         Spacer(Modifier.width(8.dp))
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            Text(title)
-            Text(description)
+            Text(title, fontSize = 12.sp)
+            Text(description, fontSize = 10.sp)
         }
         Spacer(Modifier.width(8.dp))
-        Text(trailingNumber)
+        Text(trailingNumber, fontSize = 12.sp)
     }
 }
