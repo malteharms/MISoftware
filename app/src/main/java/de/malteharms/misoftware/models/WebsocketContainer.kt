@@ -6,6 +6,7 @@ import java.util.Date
 data class CostsGroupContainer(
     val title: String,
     val creationDate: Date,
+    val member: List<String>,
     val entries: MutableList<CostsEntryContainer>
 )
 

@@ -27,9 +27,6 @@ import de.malteharms.misoftware.ui.screens.notes.NotesPage
 import de.malteharms.misoftware.ui.screens.shopping.ShoppingPage
 import de.malteharms.misoftware.ui.screens.todo.TodoPage
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
-import de.malteharms.misoftware.utils.SharedPreferencesManager
-
-private const val TAG = "MyActivity"
 
 class MainActivity : ComponentActivity() {
 
@@ -67,7 +64,7 @@ private fun MyApp(modifier: Modifier = Modifier) {
         ) { paddingValues ->
             NavHost(
                 navController = navController,
-                startDestination = Screens.Home.route,
+                startDestination = Screens.Functions.route,
                 modifier = Modifier.padding(paddingValues = paddingValues)
             ) {
                 composable(Screens.Home.route) {

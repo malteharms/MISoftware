@@ -18,10 +18,12 @@ import androidx.compose.ui.unit.dp
 import de.malteharms.misoftware.models.Screens
 import de.malteharms.misoftware.ui.screens.costs.CostsPreview
 import de.malteharms.misoftware.ui.components.wrapper.AppWrapper
+import de.malteharms.misoftware.ui.screens.costs.CostsPage
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 
 @Composable
 fun FunctionScreen(navController: NavController) {
+    /*
     MISoftwareTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -69,4 +71,6 @@ fun FunctionScreen(navController: NavController) {
             }
         }
     }
+    */
+    CostsPage()
 }

@@ -23,13 +23,21 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import de.malteharms.misoftware.models.CostsGroupContainer
 import de.malteharms.misoftware.ui.components.wrapper.CostsGroupElement
 import de.malteharms.misoftware.ui.components.wrapper.CostsListElement
+import de.malteharms.misoftware.ui.screens.costs.elements.Saldo
+import de.malteharms.misoftware.utils.getAveragePerDayPerGroup
+import de.malteharms.misoftware.utils.getSumForEntry
+import de.malteharms.misoftware.utils.getSampleDataSet
+import de.malteharms.misoftware.utils.getSumForGroup
 
 @Composable
 fun CostsPage() {
@@ -53,6 +61,9 @@ fun CostsPage() {
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Top
         ) {
+
+            CostSummary(sampleData[selectedIndex])
+            Spacer(modifier = Modifier.height(padding.dp))
             Row(    // Left / Right
                 modifier = Modifier
                     .height(splitHeight.dp)
@@ -67,6 +78,8 @@ fun CostsPage() {
                             .fillMaxWidth()
                             .verticalScroll(rememberScrollState())
                     ) {
+                        // TODO #16 Visualization for Year / Month / Week in costs group list
+                        // https://github.com/malteharms/MISoftware/issues/16
                         sampleData.forEachIndexed { index, costGroup ->
                             CostsGroupElement(
                                 title = costGroup.title,
@@ -90,7 +103,7 @@ fun CostsPage() {
                                 leadingIcon = entry.icon,
                                 title = entry.title,
                                 description = "Bezahlt von",
-                                trailingNumber = getPaidSum(entry.payedFrom)
+                                trailingNumber = getSumForEntry(entry.payedFrom)
                             )
                             Spacer(modifier = Modifier.height(10.dp))
                         }
@@ -98,25 +111,52 @@ fun CostsPage() {
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(padding.dp))
-            CostSummary(sampleData[selectedIndex])
         }
+        // TODO #15 Missing floating button to filter the displayed items
+        // https://github.com/malteharms/MISoftware/issues/15
     }
 }
 
 
 @Composable
-fun CostSummary(entry: CostsGroupContainer) {
+fun CostSummary(groupContainer: CostsGroupContainer) {
     val elevation = 5
     val roundedCorner = 20
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
+            .height(100.dp)
             .clip(RoundedCornerShape(roundedCorner.dp))
             .background(MaterialTheme.colorScheme.surfaceColorAtElevation(elevation.dp))
             .padding((roundedCorner / 2).dp)
     ) {
-        Text(text = "Summary for ${entry.title}")
+        Column(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(   // title
+                text = "Zusammenfassung",
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .padding(bottom = 10.dp)
+                    .align(Alignment.CenterHorizontally),
+            )
+            Row(    // values and graph
+                modifier = Modifier
+                    .fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column {    // values
+                    Text(
+                        text = "Gesamt: ${getSumForGroup(groupContainer)}",
+                        fontSize = 12.sp)
+                    Text(
+                        text = "Ausgaben pro Tag: ${getAveragePerDayPerGroup(groupContainer)}",
+                        fontSize = 12.sp)
+                }
+                Spacer(modifier = Modifier.width(20.dp))
+                Saldo(groupContainer)   // graph
+            }
+        }
     }
 }
