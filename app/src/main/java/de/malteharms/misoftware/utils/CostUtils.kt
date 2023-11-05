@@ -9,7 +9,9 @@ import androidx.compose.ui.graphics.Color
 import de.malteharms.misoftware.models.CostsEntryContainer
 import de.malteharms.misoftware.models.CostsGroupContainer
 import de.malteharms.misoftware.models.Label
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 fun getSumForEntry(payedFrom: MutableMap<String, Float>): String {
     var sum = 0F
@@ -58,9 +60,22 @@ fun getExpensesByName(group: CostsGroupContainer): MutableMap<String, Float> {
     return costsByName
 }
 
+fun getMonthFromDate(group: CostsGroupContainer): String {
+    val parts = group.creationDate.toString().split(" ")
+    return parts[1]
+}
+
+fun getYearFromDate(group: CostsGroupContainer): String {
+    val parts = group.creationDate.toString().split(" ")
+    return parts[5].substring(2)
+}
+
 fun getSampleDataSet(): List<CostsGroupContainer> {
     val calendar = Calendar.getInstance()
     val currentDate = calendar.time
+
+    val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.GERMAN)
+    val sampleDate = dateFormat.parse("01.10.2023")
 
     return listOf(
         CostsGroupContainer(
@@ -98,6 +113,38 @@ fun getSampleDataSet(): List<CostsGroupContainer> {
         CostsGroupContainer(
             title = "Malte",
             creationDate = currentDate,
+            member = listOf("Malte", "Ina"),
+            entries = mutableListOf(
+                CostsEntryContainer(
+                    title = "Essenskarte aufgeladen",
+                    icon = Icons.Filled.ArrowBack,
+                    payedFrom = mutableMapOf(
+                        "Malte" to 50.toFloat(),
+                        "Ina" to 0.0.toFloat()),
+                    date = currentDate,
+                    label = mutableListOf(
+                        Label(name = "Einkauf", color = Color.Blue),
+                        Label(name = "Woche", color = Color.Red)
+                    )
+                ),
+                CostsEntryContainer(
+                    title = "Job Ticket",
+                    icon = Icons.Filled.AddCircle,
+                    payedFrom = mutableMapOf(
+                        "Malte" to 36.toFloat(),
+                        "Ina" to 1.toFloat()),
+                    date = currentDate,
+                    label = mutableListOf(
+                        Label(name = "Einkauf", color = Color.Blue),
+                        Label(name = "Woche", color = Color.Red)
+                    )
+                ),
+            )
+        ),
+
+        CostsGroupContainer(
+            title = "BS",
+            creationDate = sampleDate!!,
             member = listOf("Malte", "Ina"),
             entries = mutableListOf(
                 CostsEntryContainer(

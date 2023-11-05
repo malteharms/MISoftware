@@ -34,14 +34,20 @@ import de.malteharms.misoftware.models.CostsGroupContainer
 import de.malteharms.misoftware.ui.components.wrapper.CostsGroupElement
 import de.malteharms.misoftware.ui.components.wrapper.CostsListElement
 import de.malteharms.misoftware.ui.screens.costs.elements.Saldo
+import de.malteharms.misoftware.ui.screens.costs.elements.TimelineSpacer
 import de.malteharms.misoftware.utils.getAveragePerDayPerGroup
+import de.malteharms.misoftware.utils.getMonthFromDate
 import de.malteharms.misoftware.utils.getSumForEntry
 import de.malteharms.misoftware.utils.getSampleDataSet
 import de.malteharms.misoftware.utils.getSumForGroup
+import de.malteharms.misoftware.utils.getYearFromDate
 
 @Composable
 fun CostsPage() {
     val sampleData = getSampleDataSet()
+
+    // [ Okt2023, Nov2023, ... ]
+    var containingGroups: MutableList<String> = mutableListOf()
 
     val padding = 20
     var selectedIndex by remember { mutableIntStateOf(0) }
@@ -78,9 +84,15 @@ fun CostsPage() {
                             .fillMaxWidth()
                             .verticalScroll(rememberScrollState())
                     ) {
-                        // TODO #16 Visualization for Year / Month / Week in costs group list
-                        // https://github.com/malteharms/MISoftware/issues/16
                         sampleData.forEachIndexed { index, costGroup ->
+                            val curMonth = getMonthFromDate(costGroup)
+                            val curYear = getYearFromDate(costGroup)
+                            val key = "$curMonth $curYear"
+                            if (!containingGroups.contains(key)) {
+                                containingGroups.add(key)
+                                TimelineSpacer(key)
+                            }
+
                             CostsGroupElement(
                                 title = costGroup.title,
                                 isSelected = index == selectedIndex,
@@ -144,18 +156,20 @@ fun CostSummary(groupContainer: CostsGroupContainer) {
             Row(    // values and graph
                 modifier = Modifier
                     .fillMaxSize(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Column {    // values
-                    Text(
-                        text = "Gesamt: ${getSumForGroup(groupContainer)}",
-                        fontSize = 12.sp)
-                    Text(
-                        text = "Ausgaben pro Tag: ${getAveragePerDayPerGroup(groupContainer)}",
-                        fontSize = 12.sp)
+                Column {
+                    Text(text = "Gesamt", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    Text(text = getSumForGroup(groupContainer), fontSize = 10.sp)
                 }
-                Spacer(modifier = Modifier.width(20.dp))
-                Saldo(groupContainer)   // graph
+                // TODO #17 Saldo needs a graphical representation, not just text
+                // https://github.com/malteharms/MISoftware/issues/17
+                Saldo(groupContainer)
+                Column (horizontalAlignment = Alignment.End) {
+                    Text(text = "∅/Tag", fontSize = 12.sp, fontWeight = FontWeight.Bold)
+                    Text(text = getAveragePerDayPerGroup(groupContainer), fontSize = 10.sp)
+                }
             }
         }
     }

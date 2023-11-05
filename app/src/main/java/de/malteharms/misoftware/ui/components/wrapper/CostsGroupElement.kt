@@ -25,6 +25,7 @@ fun CostsGroupElement(
     onClick: () -> Unit
 ) {
     val paddingLeft = 10
+    val boxHeight = 30
 
     val backgroundColor: Color = if (isSelected) {
         MaterialTheme.colorScheme.primaryContainer
@@ -35,7 +36,7 @@ fun CostsGroupElement(
     Box (
         modifier = Modifier
             .fillMaxWidth()
-            .height(50.dp)
+            .height(boxHeight.dp)
             .clip(RoundedCornerShape(20.dp))
             .background(backgroundColor)
             .padding(horizontal = paddingLeft.dp)
