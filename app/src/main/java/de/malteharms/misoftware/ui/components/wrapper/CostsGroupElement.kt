@@ -37,7 +37,7 @@ fun CostsGroupElement(
         modifier = Modifier
             .fillMaxWidth()
             .height(boxHeight.dp)
-            .clip(RoundedCornerShape(20.dp))
+            .clip(RoundedCornerShape(10.dp))
             .background(backgroundColor)
             .padding(horizontal = paddingLeft.dp)
             .clickable(onClick = onClick),

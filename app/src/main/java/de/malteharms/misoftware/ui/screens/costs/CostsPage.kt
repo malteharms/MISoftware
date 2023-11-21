@@ -1,5 +1,6 @@
 package de.malteharms.misoftware.ui.screens.costs
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -15,7 +16,13 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.surfaceColorAtElevation
 import androidx.compose.runtime.Composable
@@ -42,12 +49,14 @@ import de.malteharms.misoftware.utils.getSampleDataSet
 import de.malteharms.misoftware.utils.getSumForGroup
 import de.malteharms.misoftware.utils.getYearFromDate
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CostsPage() {
     val sampleData = getSampleDataSet()
 
     // [ Okt2023, Nov2023, ... ]
-    var containingGroups: MutableList<String> = mutableListOf()
+    val containingGroups: MutableList<String> = mutableListOf()
 
     val padding = 20
     var selectedIndex by remember { mutableIntStateOf(0) }
@@ -57,76 +66,88 @@ fun CostsPage() {
     val maxScreenHeight = LocalConfiguration.current.screenHeightDp
     val splitHeight = (maxScreenHeight * 0.6)
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(padding.dp)
+    Scaffold (
+        floatingActionButton = {
+            ExtendedFloatingActionButton(
+                onClick = { /*TODO*/ },
+                text = { Text(text = "Ausgabe hinzufügen") },
+                icon = { Icon(Icons.Filled.Add, "") }
+            )
+        }
     ) {
-        Column(
+        Box(
             modifier = Modifier
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.Top
+                .fillMaxSize()
+                .padding(padding.dp)
         ) {
-
-            CostSummary(sampleData[selectedIndex])
-            Spacer(modifier = Modifier.height(padding.dp))
-            Row(    // Left / Right
+            Column(
                 modifier = Modifier
-                    .height(splitHeight.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Top
             ) {
-                Box (modifier = Modifier
-                    .width(leftSpaceWidth.dp)
-                    .fillMaxHeight()){     // Left
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .verticalScroll(rememberScrollState())
-                    ) {
-                        sampleData.forEachIndexed { index, costGroup ->
-                            val curMonth = getMonthFromDate(costGroup)
-                            val curYear = getYearFromDate(costGroup)
-                            val key = "$curMonth $curYear"
-                            if (!containingGroups.contains(key)) {
-                                containingGroups.add(key)
-                                TimelineSpacer(key)
-                            }
 
-                            CostsGroupElement(
-                                title = costGroup.title,
-                                isSelected = index == selectedIndex,
-                                onClick = { selectedIndex = index }
-                            )
+                CostSummary(sampleData[selectedIndex])
+                Spacer(modifier = Modifier.height(padding.dp))
+                Row(    // Left / Right
+                    modifier = Modifier
+                        .height(splitHeight.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Box (modifier = Modifier
+                        .width(leftSpaceWidth.dp)
+                        .fillMaxHeight()){     // Left
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .verticalScroll(rememberScrollState())
+                        ) {
+                            sampleData.forEachIndexed { index, costGroup ->
+                                val curMonth = getMonthFromDate(costGroup)
+                                val curYear = getYearFromDate(costGroup)
+                                val key = "$curMonth $curYear"
+                                if (!containingGroups.contains(key)) {
+                                    if (index > 0) {
+                                        Spacer(modifier = Modifier.height(25.dp))
+                                    }
+                                    containingGroups.add(key)
+                                    TimelineSpacer(key)
+                                }
+
+                                CostsGroupElement(
+                                    title = costGroup.title,
+                                    isSelected = index == selectedIndex,
+                                    onClick = { selectedIndex = index }
+                                )
+                            }
                         }
                     }
-                }
 
-                Box (modifier = Modifier
-                    .width(rightSpaceWidth.dp)
-                    .fillMaxHeight()){    // Right
-                    Column (
-                        modifier = Modifier
-                            .verticalScroll(rememberScrollState())
-                    ){
+                    Box (modifier = Modifier
+                        .width(rightSpaceWidth.dp)
+                        .fillMaxHeight()){    // Right
+                        Column (
+                            modifier = Modifier
+                                .verticalScroll(rememberScrollState())
+                        ){
 
-                        sampleData[selectedIndex].entries.forEach { entry ->
-                            CostsListElement(
-                                leadingIcon = entry.icon,
-                                title = entry.title,
-                                description = "Bezahlt von",
-                                trailingNumber = getSumForEntry(entry.payedFrom)
-                            )
-                            Spacer(modifier = Modifier.height(10.dp))
+                            sampleData[selectedIndex].entries.forEach { entry ->
+                                CostsListElement(
+                                    title = entry.title,
+                                    trailingNumber = getSumForEntry(entry.payedFrom)
+                                )
+                                Spacer(modifier = Modifier.height(10.dp))
+                            }
+
                         }
-
                     }
                 }
             }
+            // TODO #15 Missing floating button to filter the displayed items
+            // https://github.com/malteharms/MISoftware/issues/15
         }
-        // TODO #15 Missing floating button to filter the displayed items
-        // https://github.com/malteharms/MISoftware/issues/15
     }
+
 }
 
 
