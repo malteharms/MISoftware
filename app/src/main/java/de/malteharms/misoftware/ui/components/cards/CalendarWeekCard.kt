@@ -1,7 +1,6 @@
 package de.malteharms.misoftware.ui.components.cards
 
 import androidx.compose.runtime.Composable
-import de.malteharms.misoftware.ui.components.SimpleCard
 import java.util.Calendar
 
 const val CALENDAR_WEEK = "Kalender\nWoche"

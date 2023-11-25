@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -35,17 +36,17 @@ fun CostsGroupElement(
 
     Box (
         modifier = Modifier
-            .fillMaxWidth()
+            .width(100.dp)
             .height(boxHeight.dp)
             .clip(RoundedCornerShape(10.dp))
             .background(backgroundColor)
             .padding(horizontal = paddingLeft.dp)
             .clickable(onClick = onClick),
-        contentAlignment = Alignment.CenterStart
+        contentAlignment = Alignment.Center
     ){
         Text(
             text = title,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
     }
 }

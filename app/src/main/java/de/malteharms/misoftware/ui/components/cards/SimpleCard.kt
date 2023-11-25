@@ -1,4 +1,4 @@
-package de.malteharms.misoftware.ui.components
+package de.malteharms.misoftware.ui.components.cards
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

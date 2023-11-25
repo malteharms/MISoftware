@@ -1,6 +1,7 @@
 package de.malteharms.misoftware
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,26 +19,23 @@ import androidx.navigation.compose.rememberNavController
 import de.malteharms.misoftware.models.Screens
 import de.malteharms.misoftware.ui.components.AppBar
 import de.malteharms.misoftware.ui.components.BottomNavigationBar
-import de.malteharms.misoftware.ui.screens.FunctionScreen
 import de.malteharms.misoftware.ui.screens.HomeScreen
-import de.malteharms.misoftware.ui.screens.SettingsScreen
-import de.malteharms.misoftware.ui.screens.StatistcScreen
 import de.malteharms.misoftware.ui.screens.costs.CostsPage
-import de.malteharms.misoftware.ui.screens.notes.NotesPage
 import de.malteharms.misoftware.ui.screens.shopping.ShoppingPage
 import de.malteharms.misoftware.ui.screens.todo.TodoPage
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
+import de.malteharms.misoftware.utils.SharedPreferencesManager
+
+private const val TAG = "MyActivity"
 
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /*
         val sharedPreferencesManager: SharedPreferencesManager =
             SharedPreferencesManager.getInstance(
                 getSharedPreferences("MISP", Context.MODE_PRIVATE))
-        */
 
         setContent {
             MISoftwareTheme {
@@ -59,37 +57,24 @@ private fun MyApp(modifier: Modifier = Modifier) {
         val navController = rememberNavController()
 
         Scaffold(
-            topBar = { AppBar() },
             bottomBar = { BottomNavigationBar(navController) }
         ) { paddingValues ->
             NavHost(
                 navController = navController,
-                startDestination = Screens.Functions.route,
+                startDestination = Screens.Home.route,
                 modifier = Modifier.padding(paddingValues = paddingValues)
             ) {
                 composable(Screens.Home.route) {
-                    HomeScreen()
-                }
-                composable(Screens.Functions.route) {
-                    FunctionScreen(navController = navController)
-                }
-                composable(Screens.Statistic.route) {
-                    StatistcScreen(navController = navController)
-                }
-                composable(Screens.Settings.route) {
-                    SettingsScreen(navController = navController)
-                }
-                composable(Screens.Notes.route) {
-                    NotesPage(navController = navController)
+                    HomeScreen(navController = navController)
                 }
                 composable(Screens.Costs.route) {
-                    CostsPage()
-                }
-                composable(Screens.Shopping.route) {
-                    ShoppingPage(navController = navController)
+                    CostsPage(navController = navController)
                 }
                 composable(Screens.Todo.route) {
                     TodoPage(navController = navController)
+                }
+                composable(Screens.Shopping.route) {
+                    ShoppingPage(navController = navController)
                 }
             }
         }

@@ -12,11 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import de.malteharms.misoftware.models.HOME
+import de.malteharms.misoftware.ui.components.AppBar
 import de.malteharms.misoftware.ui.components.cards.CalendarWeekCard
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    navController: NavController
+) {
     MISoftwareTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -25,10 +30,13 @@ fun HomeScreen() {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(30.dp),
-                horizontalAlignment = Alignment.Start,
+                    .padding(20.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top
             ) {
+                AppBar(
+                    title = HOME,
+                    navController = navController)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround

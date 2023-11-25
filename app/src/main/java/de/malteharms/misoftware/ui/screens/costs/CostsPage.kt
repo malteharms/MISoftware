@@ -18,8 +18,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -37,7 +39,12 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import de.malteharms.misoftware.models.COSTS
 import de.malteharms.misoftware.models.CostsGroupContainer
+import de.malteharms.misoftware.models.Screens
+import de.malteharms.misoftware.ui.components.AppBar
+import de.malteharms.misoftware.ui.components.cards.LARGE_FONT_SIZE
 import de.malteharms.misoftware.ui.components.wrapper.CostsGroupElement
 import de.malteharms.misoftware.ui.components.wrapper.CostsListElement
 import de.malteharms.misoftware.ui.screens.costs.elements.Saldo
@@ -52,17 +59,19 @@ import de.malteharms.misoftware.utils.getYearFromDate
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CostsPage() {
+fun CostsPage(
+    navController: NavController
+) {
     val sampleData = getSampleDataSet()
 
     // [ Okt2023, Nov2023, ... ]
-    val containingGroups: MutableList<String> = mutableListOf()
+    var containingGroups: MutableList<String> = mutableListOf()
 
     val padding = 20
     var selectedIndex by remember { mutableIntStateOf(0) }
     val maxScreenWidth = LocalConfiguration.current.screenWidthDp
     val leftSpaceWidth = (maxScreenWidth * 0.3)
-    val rightSpaceWidth = (maxScreenWidth * 0.55)
+    val rightSpaceWidth = (maxScreenWidth * 0.45)
     val maxScreenHeight = LocalConfiguration.current.screenHeightDp
     val splitHeight = (maxScreenHeight * 0.6)
 
@@ -70,62 +79,40 @@ fun CostsPage() {
         floatingActionButton = {
             ExtendedFloatingActionButton(
                 onClick = { /*TODO*/ },
-                text = { Text(text = "Ausgabe hinzufügen") },
+                text = { Text(text = "Neu") },
                 icon = { Icon(Icons.Filled.Add, "") }
             )
         }
     ) {
         Box(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .padding(padding.dp)
         ) {
+
             Column(
                 modifier = Modifier
-                    .fillMaxSize(),
-                verticalArrangement = Arrangement.Top
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                AppBar(
+                    title = COSTS,
+                    navController = navController
+                )
 
                 CostSummary(sampleData[selectedIndex])
                 Spacer(modifier = Modifier.height(padding.dp))
-                Row(    // Left / Right
+                Row(
                     modifier = Modifier
                         .height(splitHeight.dp)
                         .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceAround
                 ) {
                     Box (modifier = Modifier
-                        .width(leftSpaceWidth.dp)
-                        .fillMaxHeight()){     // Left
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .verticalScroll(rememberScrollState())
-                        ) {
-                            sampleData.forEachIndexed { index, costGroup ->
-                                val curMonth = getMonthFromDate(costGroup)
-                                val curYear = getYearFromDate(costGroup)
-                                val key = "$curMonth $curYear"
-                                if (!containingGroups.contains(key)) {
-                                    if (index > 0) {
-                                        Spacer(modifier = Modifier.height(25.dp))
-                                    }
-                                    containingGroups.add(key)
-                                    TimelineSpacer(key)
-                                }
-
-                                CostsGroupElement(
-                                    title = costGroup.title,
-                                    isSelected = index == selectedIndex,
-                                    onClick = { selectedIndex = index }
-                                )
-                            }
-                        }
-                    }
-
-                    Box (modifier = Modifier
                         .width(rightSpaceWidth.dp)
-                        .fillMaxHeight()){    // Right
+                        .fillMaxHeight()
+                    ){    // Left
                         Column (
                             modifier = Modifier
                                 .verticalScroll(rememberScrollState())
