@@ -35,11 +35,6 @@ fun BottomNavigationBar(
                  */
                 selected = index == navigationSelectedItem,
 
-                //Label is used to bottom navigation labels like Home, Search
-                label = {
-                    Text(navigationItem.label)
-                },
-
                 // Icon is used to display the icons of the bottom Navigation Bar
                 icon = {
                     Icon(

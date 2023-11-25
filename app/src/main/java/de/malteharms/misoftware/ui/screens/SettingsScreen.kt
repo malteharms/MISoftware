@@ -1,4 +1,4 @@
-package de.malteharms.misoftware.ui.components.screens
+package de.malteharms.misoftware.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

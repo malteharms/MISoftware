@@ -3,7 +3,6 @@ package de.malteharms.misoftware
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,10 +19,10 @@ import androidx.navigation.compose.rememberNavController
 import de.malteharms.misoftware.models.Screens
 import de.malteharms.misoftware.ui.components.AppBar
 import de.malteharms.misoftware.ui.components.BottomNavigationBar
-import de.malteharms.misoftware.ui.components.screens.FunctionScreen
-import de.malteharms.misoftware.ui.components.screens.HomeScreen
-import de.malteharms.misoftware.ui.components.screens.SettingsScreen
-import de.malteharms.misoftware.ui.components.screens.StatistcScreen
+import de.malteharms.misoftware.ui.screens.HomeScreen
+import de.malteharms.misoftware.ui.screens.costs.CostsPage
+import de.malteharms.misoftware.ui.screens.shopping.ShoppingPage
+import de.malteharms.misoftware.ui.screens.todo.TodoPage
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 import de.malteharms.misoftware.utils.SharedPreferencesManager
 
@@ -58,7 +57,6 @@ private fun MyApp(modifier: Modifier = Modifier) {
         val navController = rememberNavController()
 
         Scaffold(
-            topBar = { AppBar() },
             bottomBar = { BottomNavigationBar(navController) }
         ) { paddingValues ->
             NavHost(
@@ -69,14 +67,14 @@ private fun MyApp(modifier: Modifier = Modifier) {
                 composable(Screens.Home.route) {
                     HomeScreen(navController = navController)
                 }
-                composable(Screens.Functions.route) {
-                    FunctionScreen(navController = navController)
+                composable(Screens.Costs.route) {
+                    CostsPage(navController = navController)
                 }
-                composable(Screens.Statistic.route) {
-                    StatistcScreen(navController = navController)
+                composable(Screens.Todo.route) {
+                    TodoPage(navController = navController)
                 }
-                composable(Screens.Settings.route) {
-                    SettingsScreen(navController = navController)
+                composable(Screens.Shopping.route) {
+                    ShoppingPage(navController = navController)
                 }
             }
         }

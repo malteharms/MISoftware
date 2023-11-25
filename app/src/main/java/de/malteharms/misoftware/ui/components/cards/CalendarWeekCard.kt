@@ -1,7 +1,6 @@
 package de.malteharms.misoftware.ui.components.cards
 
 import androidx.compose.runtime.Composable
-import de.malteharms.misoftware.ui.components.SimpleCard
 import java.util.Calendar
 
 const val CALENDAR_WEEK = "Kalender\nWoche"
@@ -16,5 +15,5 @@ fun CalendarWeekCard() {
 
 fun getCurrentCalendarWeek(): String {
     val calendar = Calendar.getInstance()
-    return calendar.get(Calendar.WEEK_OF_YEAR).toString()
+    return calendar[Calendar.WEEK_OF_YEAR].toString()
 }
