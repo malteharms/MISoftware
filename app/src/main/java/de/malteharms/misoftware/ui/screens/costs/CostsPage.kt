@@ -41,6 +41,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import de.malteharms.misoftware.models.COSTS
+import de.malteharms.misoftware.models.CostEntry
+import de.malteharms.misoftware.models.CostState
 import de.malteharms.misoftware.models.CostsGroupContainer
 import de.malteharms.misoftware.models.Screens
 import de.malteharms.misoftware.ui.components.AppBar
@@ -60,25 +62,30 @@ import de.malteharms.misoftware.utils.getYearFromDate
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CostsPage(
-    navController: NavController
+    navController: NavController,
+    state: CostState,
+    addItemFunction: (item: CostEntry) -> Unit
 ) {
     val sampleData = getSampleDataSet()
 
-    // [ Okt2023, Nov2023, ... ]
-    var containingGroups: MutableList<String> = mutableListOf()
-
     val padding = 20
-    var selectedIndex by remember { mutableIntStateOf(0) }
+    val selectedIndex by remember { mutableIntStateOf(0) }
     val maxScreenWidth = LocalConfiguration.current.screenWidthDp
-    val leftSpaceWidth = (maxScreenWidth * 0.3)
     val rightSpaceWidth = (maxScreenWidth * 0.45)
-    val maxScreenHeight = LocalConfiguration.current.screenHeightDp
-    val splitHeight = (maxScreenHeight * 0.6)
 
     Scaffold (
         floatingActionButton = {
             ExtendedFloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    addItemFunction(
+                        CostEntry(
+                            title = "Einkauf Edeka",
+                            payedBy = "Malte",
+                            amount = 2.0F,
+                            timestamp = "01.01.2024"
+                        )
+                    )
+                },
                 text = { Text(text = "Neu") },
                 icon = { Icon(Icons.Filled.Add, "") }
             )
@@ -103,30 +110,25 @@ fun CostsPage(
 
                 CostSummary(sampleData[selectedIndex])
                 Spacer(modifier = Modifier.height(padding.dp))
-                Row(
-                    modifier = Modifier
-                        .height(splitHeight.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    Box (modifier = Modifier
-                        .width(rightSpaceWidth.dp)
-                        .fillMaxHeight()
-                    ){    // Left
-                        Column (
-                            modifier = Modifier
-                                .verticalScroll(rememberScrollState())
-                        ){
 
-                            sampleData[selectedIndex].entries.forEach { entry ->
-                                CostsListElement(
-                                    title = entry.title,
-                                    trailingNumber = getSumForEntry(entry.payedFrom)
-                                )
-                                Spacer(modifier = Modifier.height(10.dp))
-                            }
+                Box (modifier = Modifier
+                    .width(rightSpaceWidth.dp)
+                    .fillMaxHeight()
+                ){
+                    Column (
+                        modifier = Modifier
+                            .verticalScroll(rememberScrollState())
+                    ){
 
+                        println(state.items)
+                        state.items.forEach { item ->
+                            CostsListElement(
+                                title = item.title,
+                                trailingNumber = "${item.amount}€"
+                            )
+                            Spacer(modifier = Modifier.height(10.dp))
                         }
+
                     }
                 }
             }
