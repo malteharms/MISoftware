@@ -17,7 +17,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import de.malteharms.misoftware.models.Screens
-import de.malteharms.misoftware.ui.components.AppBar
 import de.malteharms.misoftware.ui.components.BottomNavigationBar
 import de.malteharms.misoftware.ui.screens.HomeScreen
 import de.malteharms.misoftware.ui.screens.costs.CostsPage
@@ -25,6 +24,14 @@ import de.malteharms.misoftware.ui.screens.shopping.ShoppingPage
 import de.malteharms.misoftware.ui.screens.todo.TodoPage
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 import de.malteharms.misoftware.utils.SharedPreferencesManager
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.plugins.websocket.WebSockets
+import io.ktor.client.plugins.websocket.webSocket
+import io.ktor.http.HttpMethod
+import io.ktor.websocket.Frame
+import kotlinx.coroutines.runBlocking
 
 private const val TAG = "MyActivity"
 
@@ -36,6 +43,20 @@ class MainActivity : ComponentActivity() {
         val sharedPreferencesManager: SharedPreferencesManager =
             SharedPreferencesManager.getInstance(
                 getSharedPreferences("MISP", Context.MODE_PRIVATE))
+
+        val client = HttpClient(CIO) {
+            install(Logging)
+            install(WebSockets)
+        }
+
+        runBlocking {
+            client.webSocket(method = HttpMethod.Get, host = "192.168.178.28", port = 8080, path = "/costs") {
+                val message = "new_item#Hi :)"
+                send(Frame.Text(message))
+            }
+        }
+
+        client.close()
 
         setContent {
             MISoftwareTheme {
