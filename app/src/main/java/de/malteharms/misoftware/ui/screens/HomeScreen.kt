@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import de.malteharms.misoftware.models.HOME
 import de.malteharms.misoftware.ui.components.AppBar

@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
+    id("kotlinx-serialization")
 }
 
 android {
@@ -53,6 +55,15 @@ dependencies {
 
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
     implementation("androidx.navigation:navigation-compose:2.7.4")
+
+    // ktor
+    val ktorVersion = "2.3.7"
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-websockets:$ktorVersion")
+    implementation("io.ktor:ktor-client-logging:$ktorVersion")
+    
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
