@@ -3,7 +3,7 @@ package de.malteharms.misoftware.ui.screens.costs
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.malteharms.misoftware.connection.RealtimeMessagingClient
-import de.malteharms.misoftware.models.CostEntry
+import de.malteharms.misoftware.models.CostItem
 import de.malteharms.misoftware.models.CostState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -33,7 +33,7 @@ class CostsViewModel(
     private val _showConnectionError = MutableStateFlow(false)
     val showConnectionError = _showConnectionError.asStateFlow()
 
-    fun addItem(item: CostEntry) {
+    fun addItem(item: CostItem) {
         viewModelScope.launch {
             client.sendAddItem(item)
         }

@@ -1,6 +1,6 @@
 package de.malteharms.misoftware.connection
 
-import de.malteharms.misoftware.models.CostEntry
+import de.malteharms.misoftware.models.CostItem
 import de.malteharms.misoftware.models.CostState
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.websocket.webSocketSession
@@ -45,7 +45,7 @@ class KtorRealtimeMessagingClient (
         }
     }
 
-    override suspend fun sendAddItem(item: CostEntry) {
+    override suspend fun sendAddItem(item: CostItem) {
         session?.outgoing?.send(
             Frame.Text("add_item#${Json.encodeToString(item)}")
         )

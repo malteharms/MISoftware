@@ -4,14 +4,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CostState(
-    val total: Float = 0F,                          // total amount of costs for a time period
-    val average: Float = 0F,                        // average per time period
-    val member: List<String> = listOf("Malte"),     // list of uuid of each person
-    val items: List<CostEntry> = listOf()           // all items provided by each person
+    val member: List<String> = listOf(),            // list of uuid of each person
+    val items: List<CostItem> = listOf()           // all items provided by each person
 )
 
 @Serializable
-data class CostEntry(
+data class CostItem(
     val title: String,              // title of payment
     val payedBy: String,            // uuid of person who payed
     val amount: Float,              // cost amount

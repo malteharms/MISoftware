@@ -53,6 +53,7 @@ android {
 
 dependencies {
 
+    // navigation
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.27.0")
     implementation("androidx.navigation:navigation-compose:2.7.4")
 
@@ -62,9 +63,10 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     implementation("io.ktor:ktor-client-websockets:$ktorVersion")
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
-    
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
+    // material jetpack compose
+    implementation("androidx.compose.material3:material3:1.2.0-beta01")
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.0")
