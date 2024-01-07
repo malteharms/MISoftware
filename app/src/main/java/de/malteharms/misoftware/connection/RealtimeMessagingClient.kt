@@ -1,13 +1,13 @@
 package de.malteharms.misoftware.connection
 
-import de.malteharms.misoftware.models.CostItem
-import de.malteharms.misoftware.models.CostState
+import de.malteharms.misoftware.models.CostResultWrapper
+import de.malteharms.misoftware.models.CostsAddItemOutgoingMessage
 import kotlinx.coroutines.flow.Flow
 
 interface RealtimeMessagingClient {
 
-    fun getCostStateStream(): Flow<CostState>
-    suspend fun sendAddItem(item: CostItem)
+    fun getSocketStream(): Flow<CostResultWrapper>
+    suspend fun sendAddItem(item: CostsAddItemOutgoingMessage)
     suspend fun close()
 
 }

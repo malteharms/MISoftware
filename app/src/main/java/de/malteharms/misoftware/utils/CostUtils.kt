@@ -1,14 +1,13 @@
 package de.malteharms.misoftware.utils
 
 import de.malteharms.misoftware.models.CostItem
-import de.malteharms.misoftware.models.CostState
 import java.util.Calendar
 import kotlin.math.roundToInt
 
 
-fun sumPayments(state: CostState): Float {
+fun sumPayments(state: List<CostItem>): Float {
     var sum: Float = 0F
-    state.items.forEach { item ->
+    state.forEach { item ->
         sum += item.amount
     }
 
@@ -17,7 +16,7 @@ fun sumPayments(state: CostState): Float {
 }
 
 
-fun calculateAverage(state: CostState): Float {
+fun calculateAverage(state: List<CostItem>): Float {
     val currentTime = Calendar.getInstance().time
     val parts = currentTime.toString().split(" ")
     val currentDay = parts[2].toInt()
@@ -30,8 +29,10 @@ fun calculateAverage(state: CostState): Float {
 fun emptyCostItem(): CostItem {
     return CostItem(
         title = "",
-        amount = 0F,
+        groupId = "",
         payedBy = "",
-        timestamp = ""
+        createdBy = "",
+        amount = 0F,
+        timestamp = 0
     )
 }

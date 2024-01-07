@@ -12,7 +12,6 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import de.malteharms.misoftware.models.CostItem
@@ -43,7 +42,7 @@ fun DetailsBottomSheet(
                 Text(text = item.title)
                 Text(text = item.payedBy)
                 Text(text = "${item.amount}€")
-                Text(text = item.timestamp)
+                Text(text = "${item.timestamp}")
             }
         }
     }
@@ -55,9 +54,11 @@ fun DetailsBottomSheetPreview() {
     DetailsBottomSheet(
         item = CostItem(
             title = "Einkauf Edeka",
+            groupId = "",
             payedBy = "Malte",
+            createdBy = "Malte",
             amount = 34.56F,
-            timestamp = "01.01.2024"
+            timestamp = 0
         ),
         onDismiss = {  }
     )

@@ -2,16 +2,20 @@ package de.malteharms.misoftware.models
 
 import kotlinx.serialization.Serializable
 
+
 @Serializable
-data class CostState(
-    val member: List<String> = listOf(),            // list of uuid of each person
-    val items: List<CostItem> = listOf()           // all items provided by each person
+data class CostResultWrapper(
+    val items: List<CostItem> = listOf(),
+    val collectedTimestamp: Long = 0
 )
+
 
 @Serializable
 data class CostItem(
     val title: String,              // title of payment
-    val payedBy: String,            // uuid of person who payed
+    val groupId: String,            // reference to group
+    val payedBy: String,            // uuid of person who paid
+    val createdBy: String,          // uuid of person who created this item
     val amount: Float,              // cost amount
-    val timestamp: String           // date
+    val timestamp: Long             // date
 )
