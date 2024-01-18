@@ -5,37 +5,31 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import de.malteharms.misoftware.connection.KtorRealtimeMessagingClient
 import de.malteharms.misoftware.models.Screens
-import de.malteharms.misoftware.ui.components.BottomNavigationBar
-import de.malteharms.misoftware.ui.screens.HomeScreen
-import de.malteharms.misoftware.ui.screens.costs.CostsPage
-import de.malteharms.misoftware.ui.screens.shopping.ShoppingPage
-import de.malteharms.misoftware.ui.screens.todo.TodoPage
+import de.malteharms.misoftware.ui.screens.HelloMIApp
+import de.malteharms.misoftware.ui.screens.MainMIApp
+import de.malteharms.misoftware.ui.screens.costs.CostsViewModel
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 import de.malteharms.misoftware.utils.SharedPreferencesManager
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.websocket.WebSockets
-import io.ktor.client.plugins.websocket.webSocket
-import io.ktor.http.HttpMethod
-import io.ktor.websocket.Frame
-import kotlinx.coroutines.runBlocking
-
-private const val TAG = "MyActivity"
 
 class MainActivity : ComponentActivity() {
+
+    private val client = HttpClient(CIO) {
+        install(Logging)
+        install(WebSockets)
+    }
+
+    private val realtimeMessagingClient = KtorRealtimeMessagingClient(client)
+    private val viewModel = CostsViewModel(realtimeMessagingClient)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,32 +38,52 @@ class MainActivity : ComponentActivity() {
             SharedPreferencesManager.getInstance(
                 getSharedPreferences("MISP", Context.MODE_PRIVATE))
 
-        val client = HttpClient(CIO) {
-            install(Logging)
-            install(WebSockets)
-        }
-
-        runBlocking {
-            client.webSocket(method = HttpMethod.Get, host = "192.168.178.28", port = 8080, path = "/costs") {
-                val message = "new_item#Hi :)"
-                send(Frame.Text(message))
-            }
-        }
-
-        client.close()
-
         setContent {
             MISoftwareTheme {
-                MyApp(modifier = Modifier.fillMaxSize())
+                MyApp(
+                    spm = sharedPreferencesManager
+                )
             }
         }
     }
 }
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun MyApp(modifier: Modifier = Modifier) {
+private fun MyApp(
+    spm: SharedPreferencesManager
+) {
+
+    // determine, where to start the app
+    val firstPage: String = if (spm.contains("profile_uuid")) {
+        Screens.MainRoute.route     // the user is already logged in
+    } else {
+        Screens.HelloRoute.route    // the user has to create an account or has to login
+    }
+
+    // setup navigation
+    val navController = rememberNavController()
+    NavHost(
+        navController = navController,
+        startDestination = firstPage,
+    ) {
+        composable(Screens.HelloRoute.route) {
+            HelloMIApp(navigator = navController)
+        }
+        composable(Screens.MainRoute.route) {
+            MainMIApp(navigator = navController)
+        }
+    }
+}
+
+
+
+/*
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@Composable
+private fun MyApp(
+    modifier: Modifier = Modifier,
+    viewModel: CostsViewModel
+) {
     Surface(
         modifier = modifier,
         color = MaterialTheme.colorScheme.background
@@ -89,7 +103,13 @@ private fun MyApp(modifier: Modifier = Modifier) {
                     HomeScreen(navController = navController)
                 }
                 composable(Screens.Costs.route) {
-                    CostsPage(navController = navController)
+                    val state by viewModel.state.collectAsState()
+
+                    CostsPage(
+                        navController = navController,
+                        state = state,
+                        addItemFunction = viewModel::addItem
+                    )
                 }
                 composable(Screens.Todo.route) {
                     TodoPage(navController = navController)
@@ -101,3 +121,5 @@ private fun MyApp(modifier: Modifier = Modifier) {
         }
     }
 }
+
+ */
