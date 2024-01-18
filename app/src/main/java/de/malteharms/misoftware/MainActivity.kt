@@ -5,39 +5,21 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import de.malteharms.misoftware.connection.KtorRealtimeMessagingClient
 import de.malteharms.misoftware.models.Screens
-import de.malteharms.misoftware.ui.components.BottomNavigationBar
-import de.malteharms.misoftware.ui.screens.HomeScreen
-import de.malteharms.misoftware.ui.screens.costs.CostsPage
+import de.malteharms.misoftware.ui.screens.HelloMIApp
+import de.malteharms.misoftware.ui.screens.MainMIApp
 import de.malteharms.misoftware.ui.screens.costs.CostsViewModel
-import de.malteharms.misoftware.ui.screens.shopping.ShoppingPage
-import de.malteharms.misoftware.ui.screens.todo.TodoPage
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 import de.malteharms.misoftware.utils.SharedPreferencesManager
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.websocket.WebSockets
-import io.ktor.client.plugins.websocket.webSocket
-import io.ktor.http.HttpMethod
-import io.ktor.websocket.Frame
-import kotlinx.coroutines.runBlocking
-
-private const val TAG = "MyActivity"
 
 class MainActivity : ComponentActivity() {
 
@@ -47,7 +29,6 @@ class MainActivity : ComponentActivity() {
     }
 
     private val realtimeMessagingClient = KtorRealtimeMessagingClient(client)
-
     private val viewModel = CostsViewModel(realtimeMessagingClient)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,14 +41,43 @@ class MainActivity : ComponentActivity() {
         setContent {
             MISoftwareTheme {
                 MyApp(
-                    modifier = Modifier.fillMaxSize(),
-                    viewModel = viewModel
+                    spm = sharedPreferencesManager
                 )
             }
         }
     }
 }
 
+@Composable
+private fun MyApp(
+    spm: SharedPreferencesManager
+) {
+
+    // determine, where to start the app
+    val firstPage: String = if (spm.contains("profile_uuid")) {
+        Screens.MainRoute.route     // the user is already logged in
+    } else {
+        Screens.HelloRoute.route    // the user has to create an account or has to login
+    }
+
+    // setup navigation
+    val navController = rememberNavController()
+    NavHost(
+        navController = navController,
+        startDestination = firstPage,
+    ) {
+        composable(Screens.HelloRoute.route) {
+            HelloMIApp(navigator = navController)
+        }
+        composable(Screens.MainRoute.route) {
+            MainMIApp(navigator = navController)
+        }
+    }
+}
+
+
+
+/*
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 private fun MyApp(
@@ -111,3 +121,5 @@ private fun MyApp(
         }
     }
 }
+
+ */

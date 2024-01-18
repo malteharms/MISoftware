@@ -35,16 +35,6 @@ data class BottomNavigationItem(
                 icon = Icons.Outlined.Menu,
                 route = Screens.Costs.route
             ),
-            BottomNavigationItem(
-                label = TODO,
-                icon = Icons.Outlined.Clear,
-                route = Screens.Todo.route
-            ),
-            BottomNavigationItem(
-                label = SHOPPING,
-                icon = Icons.Outlined.ShoppingCart,
-                route = Screens.Shopping.route
-            ),
         )
     }
 }
