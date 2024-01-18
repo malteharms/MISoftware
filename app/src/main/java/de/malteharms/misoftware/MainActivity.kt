@@ -1,6 +1,5 @@
 package de.malteharms.misoftware
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import de.malteharms.misoftware.connection.KtorRealtimeMessagingClient
 import de.malteharms.misoftware.models.Screens
-import de.malteharms.misoftware.ui.screens.HelloMIApp
+import de.malteharms.misoftware.ui.screens.hello.HelloMIApp
 import de.malteharms.misoftware.ui.screens.MainMIApp
 import de.malteharms.misoftware.ui.screens.costs.CostsViewModel
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme

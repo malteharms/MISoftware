@@ -30,32 +30,47 @@ fun BasicInputField(
     var value by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
 
-    TextField(
-        value = value,
-        onValueChange = { newText ->
-            value = newText
-        },
-        leadingIcon = {
-            Icon(
-                imageVector = icon,
-                contentDescription = ""
-            )
-        },
-        label = { Text(text = mainLabel) },
-        placeholder = { Text(text = placeholder) },
+    if (isPassword) {
+        TextField(
+            value = value,
+            onValueChange = { newText ->
+                value = newText
+            },
+            leadingIcon = {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = ""
+                )
+            },
+            label = { Text(text = mainLabel) },
+            placeholder = { Text(text = placeholder) },
 
-        trailingIcon = {
-            if (isPassword) {
+            trailingIcon = {
                 IconButton(onClick = { showPassword = !showPassword }) {
                     Icon(
                         imageVector = if (showPassword) Icons.Outlined.Lock else Icons.Outlined.Info,
                         contentDescription = if (showPassword) "Show Password" else "Hide Password"
                     )
                 }
-            }
-        },
-        visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation()
-    )
+            },
+            visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation()
+        )
+    } else {
+        TextField(
+            value = value,
+            onValueChange = { newText ->
+                value = newText
+            },
+            leadingIcon = {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = ""
+                )
+            },
+            label = { Text(text = mainLabel) },
+            placeholder = { Text(text = placeholder) },
+        )
+    }
 
     return value
 }
