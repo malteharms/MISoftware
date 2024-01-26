@@ -1,10 +1,16 @@
 package de.malteharms.misoftware
 
+import LoginPage
 import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,7 +18,8 @@ import de.malteharms.misoftware.connection.KtorRealtimeMessagingClient
 import de.malteharms.misoftware.models.Screens
 import de.malteharms.misoftware.ui.screens.hello.HelloMIApp
 import de.malteharms.misoftware.ui.screens.MainMIApp
-import de.malteharms.misoftware.ui.screens.costs.CostsViewModel
+import de.malteharms.misoftware.ui.screens.costs.MIViewModel
+import de.malteharms.misoftware.ui.screens.hello.RegisterPage
 import de.malteharms.misoftware.ui.theme.MISoftwareTheme
 import de.malteharms.misoftware.utils.SharedPreferencesManager
 import io.ktor.client.HttpClient
@@ -28,7 +35,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private val realtimeMessagingClient = KtorRealtimeMessagingClient(client)
-    private val viewModel = CostsViewModel(realtimeMessagingClient)
+    private val viewModel = MIViewModel(realtimeMessagingClient)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +47,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             MISoftwareTheme {
                 MyApp(
-                    spm = sharedPreferencesManager
+                    spm = sharedPreferencesManager,
+                    viewModel = viewModel
                 )
             }
         }
@@ -49,7 +57,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun MyApp(
-    spm: SharedPreferencesManager
+    spm: SharedPreferencesManager,
+    viewModel: MIViewModel
 ) {
 
     // determine, where to start the app
@@ -61,17 +70,33 @@ private fun MyApp(
 
     // setup navigation
     val navController = rememberNavController()
-    NavHost(
-        navController = navController,
-        startDestination = firstPage,
+
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(MaterialTheme.colorScheme.background)
     ) {
-        composable(Screens.HelloRoute.route) {
-            HelloMIApp(navigator = navController)
-        }
-        composable(Screens.MainRoute.route) {
-            MainMIApp(navigator = navController)
+
+        NavHost(
+            navController = navController,
+            startDestination = firstPage,
+        ) {
+            composable(Screens.HelloRoute.route) {
+                HelloMIApp(navigator = navController)
+            }
+            composable(Screens.MainRoute.route) {
+                MainMIApp(navigator = navController)
+            }
+            composable(Screens.RegisterRoute.route) {
+                RegisterPage(
+                    registerFunction = viewModel::register
+                )
+            }
+            composable(Screens.LoginRoute.route) {
+                LoginPage()
+            }
         }
     }
+
 }
 
 

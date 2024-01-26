@@ -3,6 +3,7 @@ package de.malteharms.misoftware.connection
 import android.util.Log
 import de.malteharms.misoftware.models.CostResultWrapper
 import de.malteharms.misoftware.models.CostsAddItemOutgoingMessage
+import de.malteharms.misoftware.models.Register
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.websocket.webSocketSession
 import io.ktor.client.request.url
@@ -57,6 +58,14 @@ class KtorRealtimeMessagingClient (
 
         session?.outgoing?.send(
             Frame.Text(Json.encodeToString(item))
+        )
+    }
+
+    override suspend fun sendRegistrationRequest(account: Register) {
+        Log.i("Account", "Sending registration request")
+
+        session?.outgoing?.send(
+            Frame.Text(Json.encodeToString(account))
         )
     }
 

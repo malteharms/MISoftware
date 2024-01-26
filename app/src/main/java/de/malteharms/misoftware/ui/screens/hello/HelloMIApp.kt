@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,77 +22,72 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import de.malteharms.misoftware.models.Screens
 
 
 @Composable
 fun HelloMIApp(
     navigator: NavController
 ) {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .padding(40.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
     ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                text = "Hi ✌\uD83C\uDFFD",
+                fontSize = 40.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+
+            Text(
+                text = "",
+                fontSize = 20.sp,
+                modifier = Modifier.alpha(.3f)
+            )
+        }
+
+
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(40.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
+                .height(300.dp)
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    text = "Hi ✌\uD83C\uDFFD",
-                    fontSize = 40.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
+
+        }
+
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Button(
+                onClick = { navigator.navigate(Screens.LoginRoute.route) },
+                Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .absolutePadding(bottom = 5.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(red = 255, green = 125, blue = 0),
+                    contentColor = Color.White
                 )
-
-                Text(
-                    text = "",
-                    fontSize = 20.sp,
-                    modifier = Modifier.alpha(.3f)
-                )
-            }
-
-
-            Column(
-                modifier = Modifier
-                    .height(300.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
+                Text(text = "logge dich ein")
             }
 
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Button(
-                    onClick = { /* ToDo */ },
-                    Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)
-                        .absolutePadding(bottom = 5.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color(red = 255, green = 125, blue = 0),
-                        contentColor = Color.White
-                    )
-                ) {
-                    Text(text = "logge dich ein")
-                }
+            OutlinedButton(
+                onClick = { navigator.navigate(Screens.RegisterRoute.route) },
+                Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .absolutePadding(top = 5.dp)
+            ) {
+                Text(
+                    text = "erstelle dir ein Account",
+                    color = Color(red = 255, green = 125, blue = 0)
+                )
 
-                OutlinedButton(
-                    onClick = { /* ToDo */ },
-                    Modifier
-                        .fillMaxWidth()
-                        .height(50.dp)
-                        .absolutePadding(top = 5.dp)
-                ) {
-                    Text(
-                        text = "erstelle dir ein Account",
-                        color = Color(red = 255, green = 125, blue = 0)
-                    )
-
-                }
             }
         }
     }

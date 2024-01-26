@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import de.malteharms.misoftware.models.CostResultWrapper
 import de.malteharms.misoftware.connection.RealtimeMessagingClient
 import de.malteharms.misoftware.models.CostsAddItemOutgoingMessage
+import de.malteharms.misoftware.models.Register
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,7 +16,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.net.ConnectException
 
-class CostsViewModel(
+class MIViewModel(
     private val client: RealtimeMessagingClient
 ): ViewModel() {
 
@@ -36,6 +37,12 @@ class CostsViewModel(
     fun addItem(item: CostsAddItemOutgoingMessage) {
         viewModelScope.launch {
             client.sendAddItem(item)
+        }
+    }
+
+    fun register(account: Register) {
+        viewModelScope.launch {
+            client.sendRegistrationRequest(account)
         }
     }
 

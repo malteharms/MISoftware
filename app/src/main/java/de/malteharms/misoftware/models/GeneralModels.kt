@@ -15,3 +15,10 @@ data class CostsAddItemOutgoingMessage(
     val type: MessageType,
     val data: CostItem
 )
+
+@Serializable
+data class Register(
+    val username: String,
+    val email: String,
+    val passwordHash: String
+)

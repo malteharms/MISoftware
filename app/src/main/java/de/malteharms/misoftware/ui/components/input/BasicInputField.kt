@@ -1,11 +1,9 @@
 package de.malteharms.misoftware.ui.components.input
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -25,8 +23,9 @@ fun BasicInputField(
     mainLabel: String,
     placeholder: String,
     icon: ImageVector,
-    isPassword: Boolean
-): String {
+    isPassword: Boolean,
+    param: (String) -> Unit
+) {
     var value by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
 
@@ -71,8 +70,6 @@ fun BasicInputField(
             placeholder = { Text(text = placeholder) },
         )
     }
-
-    return value
 }
 
 
@@ -80,10 +77,11 @@ fun BasicInputField(
 @Preview
 @Composable
 fun PreviewBasicInputField() {
+    var username = ""
     BasicInputField(
         mainLabel = "Username",
         placeholder = "Type your username here",
         icon = Icons.Default.Person,
         isPassword = false
-    )
+    ) { output -> username = output }
 }
