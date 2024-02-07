@@ -9,10 +9,10 @@ public final class Native {
 
     private Native() {}
 
-    public static native Byte[] encrypt(Byte[] input);
-    public static native Byte[] decrypt(Byte[] cipher);
-    public static native Byte[] sha256(Byte[] input);
-    public static native Byte[] generateKeyPair();
-    public static native Byte[] calculateECDHE(Byte[] ourPrivateKey, Byte[] theirPublicKey);
+    public static native byte[] encrypt(byte[] jptext, byte[] jkey);
+    public static native byte[] decrypt(byte[] jctext, byte[] jkey);
+    public static native String sha256(String input);
+    public static native byte[] generateKeyPair();
+    public static native byte[] calculateECDHE(byte[] ourPrivateKey, byte[] theirPublicKey);
 
 }

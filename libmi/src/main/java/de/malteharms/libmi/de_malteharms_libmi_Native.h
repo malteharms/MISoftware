@@ -10,42 +10,42 @@ extern "C" {
 /*
  * Class:     de_malteharms_libmi_Native
  * Method:    encrypt
- * Signature: (Ljava/lang/String;)[Ljava/lang/Byte;
+ * Signature: ([B[B)[B
  */
-JNIEXPORT jobjectArray JNICALL Java_de_malteharms_libmi_Native_encrypt
-  (JNIEnv *, jclass, jstring);
+JNIEXPORT jbyteArray JNICALL Java_de_malteharms_libmi_Native_encrypt
+  (JNIEnv *, jclass, jbyteArray, jbyteArray);
 
 /*
  * Class:     de_malteharms_libmi_Native
  * Method:    decrypt
- * Signature: ([Ljava/lang/Byte;)Ljava/lang/String;
+ * Signature: ([B[B)[B
  */
-JNIEXPORT jstring JNICALL Java_de_malteharms_libmi_Native_decrypt
-  (JNIEnv *, jclass, jobjectArray);
+JNIEXPORT jbyteArray JNICALL Java_de_malteharms_libmi_Native_decrypt
+  (JNIEnv *, jclass, jbyteArray, jbyteArray);
 
 /*
  * Class:     de_malteharms_libmi_Native
  * Method:    sha256
- * Signature: (Ljava/lang/String;)[Ljava/lang/Byte;
+ * Signature: (Ljava/lang/String;)Ljava/lang/String;
  */
-JNIEXPORT jobjectArray JNICALL Java_de_malteharms_libmi_Native_sha256
+JNIEXPORT jstring JNICALL Java_de_malteharms_libmi_Native_sha256
   (JNIEnv *, jclass, jstring);
 
 /*
  * Class:     de_malteharms_libmi_Native
  * Method:    generateKeyPair
- * Signature: ()[Ljava/lang/Byte;
+ * Signature: ()[B
  */
-JNIEXPORT jobjectArray JNICALL Java_de_malteharms_libmi_Native_generateKeyPair
+JNIEXPORT jbyteArray JNICALL Java_de_malteharms_libmi_Native_generateKeyPair
   (JNIEnv *, jclass);
 
 /*
  * Class:     de_malteharms_libmi_Native
  * Method:    calculateECDHE
- * Signature: ([Ljava/lang/Byte;[Ljava/lang/Byte;)[Ljava/lang/Byte;
+ * Signature: ([B[B)[B
  */
-JNIEXPORT jobjectArray JNICALL Java_de_malteharms_libmi_Native_calculateECDHE
-  (JNIEnv *, jclass, jobjectArray, jobjectArray);
+JNIEXPORT jbyteArray JNICALL Java_de_malteharms_libmi_Native_calculateECDHE
+  (JNIEnv *, jclass, jbyteArray, jbyteArray);
 
 #ifdef __cplusplus
 }
